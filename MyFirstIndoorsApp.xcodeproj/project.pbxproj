@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		714461001B1F193A00124E64 /* mapButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 714460FF1B1F193A00124E64 /* mapButton.png */; };
 		86DA536DC7496AE93A732A2A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98EC9928615D07A2B3DCA81D /* libPods.a */; };
 		B41095181A1366FC002D7F6B /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B41095171A1366FC002D7F6B /* Launch Screen.xib */; };
 		CEB6F40F17B9F09F00C2880D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEB6F40D17B9F09F00C2880D /* InfoPlist.strings */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		245ED00E8B05C7E474F88047 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		70F24DA2BE1C9371353F2FD2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		714460FF1B1F193A00124E64 /* mapButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapButton.png; sourceTree = "<group>"; };
 		98EC9928615D07A2B3DCA81D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B41095171A1366FC002D7F6B /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		CEB6F40117B9F09F00C2880D /* MyFirstIndoorsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFirstIndoorsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +57,7 @@
 		CEB6F3F817B9F09F00C2880D = {
 			isa = PBXGroup;
 			children = (
+				714460FF1B1F193A00124E64 /* mapButton.png */,
 				CEB6F40A17B9F09F00C2880D /* MyFirstIndoorsApp */,
 				CEB6F40317B9F09F00C2880D /* Frameworks */,
 				CEB6F40217B9F09F00C2880D /* Products */,
@@ -158,6 +161,7 @@
 			files = (
 				CEB6F40F17B9F09F00C2880D /* InfoPlist.strings in Resources */,
 				B41095181A1366FC002D7F6B /* Launch Screen.xib in Resources */,
+				714461001B1F193A00124E64 /* mapButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

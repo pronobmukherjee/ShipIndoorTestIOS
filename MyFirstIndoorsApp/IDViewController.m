@@ -9,8 +9,9 @@
 #import <Indoors/IndoorsBuilder.h>
 #import <IndoorsSurface/IndoorsSurfaceBuilder.h>
 #import <IndoorsSurface/IndoorsSurfaceDelegates.h>
+#import <IndoorsSurface/ISImageMapOverlay.h>
 
-@interface IDViewController () <IndoorsSurfaceLocationDelegate, IndoorsSurfaceServiceDelegate, RoutingDelegate>
+@interface IDViewController () <IndoorsSurfaceLocationDelegate, IndoorsSurfaceServiceDelegate, RoutingDelegate, ZoneDelegate>
 @property (nonatomic, strong) IndoorsSurfaceBuilder *surfaceBuilder;
 @end
 
@@ -26,7 +27,7 @@
     // TODO: replace with your API-key
     [builder setApiKey:@"cf81642a-ca39-4bd1-ae09-b3bb6a377f76"];
     // TODO: replace with your building ID
-    [builder setBuildingId:260092219];
+    [builder setBuildingId:446756412];//260092219,446756412
     [builder enableEvaluationMode:YES];
 
     surfaceBuilder = [[IndoorsSurfaceBuilder alloc] initWithIndoorsBuilder:builder inView:self.view];
@@ -34,6 +35,7 @@
     surfaceBuilder.indoorsSurface.routeSnappingEnabled = YES;
     //for routing
     [surfaceBuilder registerForSurfaceServiceUpdates:self];
+    [surfaceBuilder registerForSurfaceLocationUpdates:self];
 
     [surfaceBuilder setZoneDisplayMode:IndoorsSurfaceZoneDisplayModeUserCurrentLocation];
 //    [surfaceBuilder setZoneDisplayMode:IndoorsSurfaceZoneDisplayModeAllAvailable];
@@ -70,12 +72,41 @@
 {
     NSLog(@"building loaded!");
     self.currentBuilding = building;
+//    [self addImageOverlay];
+}
+
+- (void)addImageOverlay
+{
+    // TODO: copy a file named "test.png" into your XCode-project!
+    UIImage *image = [UIImage imageNamed:@"mapButton"];
+    CGFloat ratio = image.size.height / image.size.width;
+    
+    ISImageMapOverlay *imageOverlay = [[ISImageMapOverlay alloc] initWithOverlayBounds:
+                                       CGRectMake (0, 0, 10000, 10000 * ratio)];
+    imageOverlay.imageView.image = image;
+    imageOverlay.userInteractionEnabled = YES;
+    
+    UIGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                 action:@selector(handleTap:)];
+    [imageOverlay addGestureRecognizer:tapRecognizer];
+    
+    [surfaceBuilder.indoorsSurface.mapScrollView addOverlay:imageOverlay toFloorLevel:8];
+}
+- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
+{
+    CGPoint point = [gestureRecognizer locationInView:surfaceBuilder.indoorsSurface.mapScrollView];
+    IDSCoordinate *coord = [surfaceBuilder.indoorsSurface.mapScrollView coordinateForPoint:point];
+    NSLog(@"Test image tapped! Location: x=%d y=%d", coord.x, coord.y);
 }
 
 - (void)loadingBuildingFailed
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to load building" delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     [alert show];
+}
+
+- (void)zonesEntered:(NSArray *)zones{
+    NSLog(@"Zones =%@",[zones description]);
 }
 
 #pragma mark - IndoorsSurfaceLocationManagerDelegate
@@ -92,10 +123,12 @@
 
 - (void)updateUserOrientation:(float)orientation
 {
+    NSLog(@"updateUserOrientation");
 }
 
 - (void)weakSignal
 {
+    NSLog(@"weakSignal");
 }
 
 - (void)positionUpdated:(IDSCoordinate *)userPosition
@@ -125,5 +158,17 @@
 {
     [self.surfaceBuilder showPathWithPoints:path];
 }
+
+#pragma mark - ZoneDelegate
+- (void)setZones:(NSArray*)zones
+{
+    
+}
+//- (void)updateFloorLevel:(int)floorLevel name:(NSString *)name;
+//- (void)updateUserPosition:(IDSCoordinate *)userPosition;
+//- (void)updateUserOrientation:(float)orientation;
+//- (void)weakSignal;
+//- (void)zonesEntered:(NSArray *)zones;
+//- (void)updateContext:(IDSContext *)context;
 
 @end
